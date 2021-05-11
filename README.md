@@ -66,3 +66,33 @@ This is the function which calls other functions and generates the required RRT/
 
 ##### NOTE :
 Using Pygame, animation is generated. Firstly, animation for node exploration is generated and followed by best solution path trajectory's animation. Keep caution while using Pygame as the origin of Pygame is at top-left corner in the workspace while the Gazebo worls coordinates are at the center.  
+
+## Step 2 (Gazebo Simulation)
+
+### Description
+We implement the results of the above Path Planning Algorithms on our Toy Car by simulating it on gazebo using ROS.
+
+### Dependencies
+a) python -version 2.7
+
+b) python -version 3
+
+c) ROS
+
+d) Gazebo
+
+### Run 
+
+Follow all the steps mentioned in step 1. It generates the required files as output. Firstly, build your catkin workspace with both the 'main_assem' and 'simple_navigation_goals'. 
+
+Open terminal and type the following, 
+
+###### roslaunch main_assem main.launch
+
+We should see the Toy Car spawned in our world. Then in another terminal tab, type the following, 
+
+###### roslaunch simple_navigation_goals movebase_seq.launch
+
+Ideally, we would observe the turtlebot to move in our new world with obstacles with the path generated from the above planning algorithms (step 1). Here instead of using the velocities to publish on the /cmd_vel topic, we use action client-server move base method (see inside the scripts directory of simple_navigation_goals package). We set the poses to reach on the parameter server (see inside the launch directory/ movebase_seq.launch). Later in the move_base_seq.py file, we get these parameters one at a time and move our toy car to that pose. This way of publishing onto our toy car is much more suited to our purpose. 
+
+However, occasionally we have to wait for a long time for the action server to start (No idea how to fix this yet! Probably the clock on my machine is not properly synchronized with ROS). In future with proper diagnostics, this error will be fixed.
