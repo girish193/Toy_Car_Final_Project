@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!-- Name your robot here -->
+<robot name ="main_assem" xmlns:xacro="http://wiki.ros.org/xacro">
+ 
+   <!-- Include your urdf files here -->
+   <!-- Include Robot's urdf filepath -->
+   <!-- Include Lidar's urdf filepath -->
+   <xacro:include filename="$(find main_assem)/urdf/main_assem.urdf"/>
+
+
+   <xacro:macro name="joint_transmission" params="name">
+        <transmission name="trans_${name}">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="${name}">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="motor_${name}">
+            <mechanicalReduction>1</mechanicalReduction>
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </actuator>
+        </transmission>
+    </xacro:macro>
+
+    <joint_transmission name="armbase_j"/>
+    <joint_transmission name="arm1_j"/>
+    <joint_transmission name="arm2_j"/>
+    <joint_transmission name="arm3_j"/>
+    <joint_transmission name="end_eff_j"/>
+    <joint_transmission name="back_l_j"/>
+    <joint_transmission name="back_r_j"/>
+
+    <gazebo>
+        <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+        <robotNamespace>/main_assem</robotNamespace>
+        <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
+        <legacyModeNS>true</legacyModeNS>
+        </plugin>
+    </gazebo>
+</robot>
+
+

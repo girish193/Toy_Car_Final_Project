@@ -1,0 +1,31 @@
+<launch>
+  <include
+    file="$(find gazebo_ros)/launch/empty_world.launch" />
+  <param name= "robot_description" command="$(find xacro)/xacro --inorder $(find main_assem)/urdf/main_assem.xacro "/>
+  <rosparam file="$(find main_assem)/config/joint_controllers.yaml" command="load"/>
+
+  <node name="spawn_model" pkg="gazebo_ros" type="spawn_model" args="-urdf -param robot_description -model main_assem1" output="screen"/>
+  <!-- Controller spawner: Starts all the defined controllers with their configs. Just add your controller names defined in your config file into the args tag below   -->
+  <node name="controller_spwaner" pkg="controller_manager" type="spawner" respawn="false"
+    output="screen" ns="/main_assem" args="joint_state_controller
+                                          back_l_controller
+                                          back_r_controller
+                                          armbase_controller
+                                          arm1_controller
+                                          arm2_controller
+                                          arm3_controller
+                                          end_eff_controller" />
+  <node name  = "joint_state_publisher" pkg = "joint_state_publisher" type = "joint_state_publisher">
+  </node>
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+  <!--<node
+    name="tf_footprint_base"
+    pkg="tf"
+    type="static_transform_publisher"
+    args="0 0 0 0 0 0 base_link base_footprint 40" /> -->
+  <!--<node
+    name="fake_joint_calibration"
+    pkg="rostopic"
+    type="rostopic"
+    args="pub /calibrated std_msgs/Bool true" />-->
+</launch>

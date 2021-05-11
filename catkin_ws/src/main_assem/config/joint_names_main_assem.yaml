@@ -1,0 +1,1 @@
+controller_joint_names: ['', 'armbase_j', 'arm1_j', 'arm2_j', 'arm3_j', 'end_eff_j', 'front_l_j', 'front_r_j', 'back_l_j', 'back_r_j', ]
