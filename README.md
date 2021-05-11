@@ -11,6 +11,12 @@ First run either of a_star.py / rrt.py / rrt_star.py file. It will generate an o
 
 The world considered here is same as considered in the Differential_Drive repo (project 3_c). To keep the code simple and not to clutter the terminal, user inputs regarding start orientation and goal orientation is set to (-4, -4, 0) and (4, 4, 0) w.r.t. gazebo world coordinates. 
 
+##### RRT Path
+![RRT Path](images/RRT.png)
+
+##### RRT* Path
+![RRT* Path](images/RRTstar.png)
+
 ### Dependencies
 a) python -version 3
 
@@ -89,7 +95,12 @@ Open terminal and type the following,
 
 ###### roslaunch main_assem main.launch
 
-We should see the Toy Car spawned in our world. Then in another terminal tab, type the following, 
+We should see the Toy Car spawned in our world as shown below. Then in another terminal tab, type the following, 
+
+##### Toy Car in Gazebo
+![Toy Car in Gazebo](images/Toy_car_spawned_in_world.png)
+
+Then in another terminal tab, type the following,
 
 ###### roslaunch simple_navigation_goals movebase_seq.launch
 
